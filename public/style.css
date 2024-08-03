@@ -112,3 +112,34 @@ input::placeholder {
     color: white;
     background: #1B1F3B;
 }
+
+@keyframes left {
+    from {
+        left: 50vw;
+    }
+    to {
+        left: -150vw;
+        rotate: -50deg;
+    }
+}
+.left {
+    animation-name: left;
+}
+
+@keyframes right {
+    from {
+        left: 50vw;
+    }
+    to {
+        left: 250vw;
+        rotate: 50deg;
+    }
+}
+.right {
+    animation-name: right;
+}
+
+.left, .right {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
