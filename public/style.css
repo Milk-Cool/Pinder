@@ -69,3 +69,17 @@ input::placeholder {
     width: calc(100vw - 2 * var(--pad) - 2 * var(--pad-outer));
     margin: var(--pad-outer);
 }
+
+@media only screen and (max-width: 768px) {
+    .icon {
+        display: none;
+    }    
+}
+
+.icon {
+    height: 17em;
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    pointer-events: none;
+}

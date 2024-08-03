@@ -4,14 +4,14 @@
         <title>Pinder</title>
         <meta charset="utf-8">
         <link href="/style.css" rel="stylesheet">
-        <script src="/password.js" defer></script>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
     </head>
     <body>
-            <% if(info) { %>
-                <div class="block wide">
-                    <h2>Info: <%= info %></h2>
-                </div>
-            <% } %>
-        </div>
+        <img src="/icon.svg" class="icon">
+        <% if(info) { %>
+            <div class="block wide">
+                <h2>Info: <%= info %></h2>
+            </div>
+        <% } %>
     </body>
 </html>
