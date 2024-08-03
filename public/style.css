@@ -64,3 +64,8 @@ input::placeholder {
 .cb {
     float: right;
 }
+
+.wide {
+    width: calc(100vw - 2 * var(--pad) - 2 * var(--pad-outer));
+    margin: var(--pad-outer);
+}

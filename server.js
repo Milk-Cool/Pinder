@@ -57,7 +57,7 @@ app.get("/", async (req, res) => {
         return res.redirect("/login");
 
     res.status(200).send(await ejs.renderFile(page("main"), {
-        "indo": req.query.info,
+        "info": req.query.info,
         "fc": req.session.fc || "",
         "pnid": req.session.pnid
     }, ejsOpts));
