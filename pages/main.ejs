@@ -13,5 +13,8 @@
                 <h2>Info: <%= info %></h2>
             </div>
         <% } %>
+        <% cards.forEach((card, i) => { %>
+            <%- include("templates/card", { "pid": card.pid, "pnid": card.pnid, "fc": card.fc, "i": i }) %>
+        <% }); %>
     </body>
 </html>

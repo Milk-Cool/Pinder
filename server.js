@@ -38,9 +38,7 @@ const page = name => join("pages", name + ".ejs");
 const template = name => join("templates", name + ".ejs");
 
 /** @type {ejs.Options} */
-const ejsOpts = {
-    "async": true
-};
+const ejsOpts = {};
 
 const app = express();
 app.use(session({
@@ -59,7 +57,19 @@ app.get("/", async (req, res) => {
     res.status(200).send(await ejs.renderFile(page("main"), {
         "info": req.query.info,
         "fc": req.session.fc || "",
-        "pnid": req.session.pnid
+        "pnid": req.session.pnid,
+        "cards": [
+            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
+            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
+            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
+            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
+            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
+            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
+            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
+            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
+            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
+            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
+        ]
     }, ejsOpts));
 });
 

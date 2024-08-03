@@ -83,3 +83,32 @@ input::placeholder {
     right: 1em;
     pointer-events: none;
 }
+
+.card {
+    box-shadow: 0 0 1em #0005;
+    width: calc(80vw - 2 * var(--pad));
+    max-width: 20em;
+    position: fixed;
+    left: 50vw;
+    transform: translateX(-50%);
+    height: 60vh;
+    max-height: 35em;
+}
+
+.card > img {
+    width: 100%;
+}
+
+.card > button {
+    width: 9em;
+    background: white;
+    color: #1B1F3B;
+    height: 4em;
+    border-radius: 2em;
+    margin: .5em;
+}
+.card > button.second {
+    float: right;
+    color: white;
+    background: #1B1F3B;
+}
