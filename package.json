@@ -1,0 +1,34 @@
+{
+  "name": "pinder",
+  "version": "0.1.0",
+  "description": "Pretendo Tinder",
+  "main": "index.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Milk-Cool/Pinder.git"
+  },
+  "keywords": [
+    "pretendo",
+    "tinder",
+    "friend",
+    "code",
+    "3ds",
+    "wiiu",
+    "wii",
+    "u"
+  ],
+  "author": "Milk_Cool",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Milk-Cool/Pinder/issues"
+  },
+  "homepage": "https://github.com/Milk-Cool/Pinder#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "sqlite3": "^5.1.7"
+  }
+}
