@@ -121,6 +121,7 @@ app.post("/login", async (req, res) => {
     req.session.pnid = user.pnid;
     req.session.pid = user.pid;
     req.session.fc = user.fc;
+    req.session.authenticated = true;
     res.redirect("/");
 });
 
