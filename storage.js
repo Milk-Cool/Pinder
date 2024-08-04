@@ -39,6 +39,19 @@ export function pushUser(user) {
 }
 
 /**
+ * Updadtes a user's show preference in the database.
+ * 
+ * @param {string} pnid The user's PNID
+ * @param {0 | 1} show Whether to show this user or not
+ */
+export function updateUser(pnid, show) {
+    return new Promise(resolve => {
+        db.run(`UPDATE swipes SET show = ?
+        WHERE pnid = ?;`, [show, pnid], resolve);
+    });
+}
+
+/**
  * Gets a user from the database by PNID.
  * 
  * @param {string} pnid The user PNID
@@ -101,7 +114,7 @@ export function getSwipeByPNIDs(from_u, to_u) {
  * Updadtes a swipe's type in the database.
  * 
  * @param {number} id The swipe ID
- * @param {Promise<SwipeType>} type The swipe type
+ * @param {SwipeType} type The swipe type
  */
 export function updateSwipe(id, type) {
     return new Promise(resolve => {
@@ -121,7 +134,7 @@ export function recommendUsers(user) {
         db.all(`SELECT u.*
         FROM swipes s
         INNER JOIN users u ON s.from_u = u.pnid
-        WHERE s.to_u = ? AND s.type = 1;`, [user], (err, data) => {
+        WHERE s.to_u = ? AND s.type = 1 AND u.show = 1;`, [user], (err, data) => {
             if(err) reject(err);
             else if(data.length < 10) db.all(`SELECT *
             FROM users u
@@ -129,7 +142,7 @@ export function recommendUsers(user) {
               SELECT s.to_u
               FROM swipes s
               WHERE s.from_u = ?
-            ) AND u.pnid != ?
+            ) AND u.pnid != ? AND u.show = 1
             ORDER BY RANDOM()
             LIMIT 10;`, [user, user], (err2, data2) => {
                 if(err2) reject(err2);

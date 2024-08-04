@@ -12,7 +12,8 @@ import {
     recommendUsers,
     pushSwipe,
     updateSwipe,
-    getSwipeByPNIDs
+    getSwipeByPNIDs,
+    updateUser
 } from "./index.js";
 
 const { TOKEN_SECRET, DEV } = process.env;
@@ -96,6 +97,15 @@ app.get("/api/sent/:pnid", async (req, res) => {
         "type": 1
     });
     res.status(200).send("sent");
+});
+
+app.get("/api/show/:show", async (req, res) => {
+    if(!req.session.authenticated)
+        return res.redirect("/login");
+
+    const show = parseInt(req.params.show);
+    await updateUser(req.session.pnid, show);
+    res.status(200).send("updated");
 });
 
 app.get("/login", async (req, res) => {
