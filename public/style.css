@@ -61,6 +61,10 @@ input::placeholder {
 .c {
     text-align: center;
 }
+.cx {
+    margin-left: auto;
+    margin-right: auto;
+}
 .cb {
     float: right;
 }
@@ -89,11 +93,11 @@ input::placeholder {
     width: calc(80vw - 2 * var(--pad));
     max-width: 20em;
     left: 50vw;
-    transform: translateX(-50%);
     height: 33em;
 }
 .fixed {
     position: fixed;
+    transform: translateX(-50%);
 }
 
 .card > img {
