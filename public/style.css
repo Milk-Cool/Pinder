@@ -91,12 +91,12 @@ input::placeholder {
     position: fixed;
     left: 50vw;
     transform: translateX(-50%);
-    height: 60vh;
-    max-height: 35em;
+    height: fit-content;
 }
 
 .card > img {
-    width: 100%;
+    width: 70%;
+    margin-left: 15%;
 }
 
 .card > button {

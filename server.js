@@ -74,7 +74,6 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/login", async (req, res) => {
-    console.log(req.session)
     if(req.session.authenticated)
         return res.redirect("/");
 
