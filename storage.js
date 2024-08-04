@@ -58,9 +58,10 @@ export function getUserByPNID(pnid) {
  * @param {Swipe} swipe The swipe data
  */
 export function pushSwipe(swipe) {
-    return new Promise(resolve => {
+    return new Promise(async resolve => {
+        if(await getSwipeByPNIDs(swipe.from_u, swipe.to_u)) return resolve(null);
         db.run(`INSERT INTO swipes (from, to, type)
-        VALUES (?, ?, ?);`, [swipe.from, swipe.to, swipe.type], resolve);
+        VALUES (?, ?, ?);`, [swipe.from_u, swipe.to_u, swipe.type], resolve);
     });
 }
 
@@ -73,6 +74,22 @@ export function pushSwipe(swipe) {
 export function getSwipeByID(id) {
     return new Promise((resolve, reject) => {
         db.get(`SELECT * FROM swipes WHERE id = ?;`, [id], (err, data) => {
+            if(err) reject(err);
+            else resolve(data);
+        });
+    });
+}
+
+/**
+ * Gets a swipe from the database by its PNIDs.
+ * 
+ * @param {string} from_u The sender
+ * @param {string} to_u The recievepent
+ * @returns {Promise<Swipe>} The swipe object
+ */
+export function getSwipeByPNIDs(from_u, to_u) {
+    return new Promise((resolve, reject) => {
+        db.get(`SELECT * FROM swipes WHERE from_u = ? AND to_u = ?;`, [from_u, to_u], (err, data) => {
             if(err) reject(err);
             else resolve(data);
         });
