@@ -141,12 +141,20 @@ export function recommendUsers(user) {
             WHERE u.pnid NOT IN (
               SELECT s.to_u
               FROM swipes s
-              WHERE s.from_u = ? OR (s.to_u = ? AND s.type = 3)
+              WHERE s.from_u = ?
+            ) AND u.pnid NOT IN (
+              SELECT s.from_u
+              FROM swipes s
+              WHERE s.to_u = ? AND s.type = 3
             ) AND u.pnid != ? AND u.show = 1
             ORDER BY RANDOM()
             LIMIT 10;`, [user, user, user], (err2, data2) => {
                 if(err2) reject(err2);
-                else resolve(data.concat(data2));
+                else {
+                    const dataf = data.map(x => x.pnid);
+                    data2 = data2.filter(x => !dataf.includes(x.pnid));
+                    resolve(data.concat(data2).slice(0, 10));
+                }
             })
             else resolve(data);
         });
