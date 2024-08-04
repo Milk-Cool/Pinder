@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pinder Preferences</title>
+        <meta charset="utf-8">
+        <link href="/style.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <script src="/prefs.js" defer></script>
+    </head>
+    <body>
+        <a href="/" class="bottom">Back</a>
+        <div class="block center">
+            <h1>Show me for other users?</h1>
+            <h3>Current status: <%= show ? "Yes" : "No" %></h3>
+            <button id="show">Show</button>
+            <button id="dont">Don't</button>
+        </div>
+    </body>
+</html>

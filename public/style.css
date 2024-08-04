@@ -99,6 +99,10 @@ input::placeholder {
     margin-left: 15%;
 }
 
+.card * {
+    text-wrap: pretty;
+}
+
 .card > button {
     width: 9em;
     background: white;
@@ -142,4 +146,12 @@ input::placeholder {
 .left, .right {
     animation-duration: 1s;
     animation-fill-mode: forwards;
+}
+
+.bottom {
+    font-size: x-large;
+    bottom: 0;
+    position: fixed;
+    left: 50vw;
+    transform: translateX(-50%);
 }

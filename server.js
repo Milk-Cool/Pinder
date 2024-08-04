@@ -68,6 +68,18 @@ app.get("/", async (req, res) => {
         "cards": users
     }, ejsOpts));
 });
+app.get("/prefs", async (req, res) => {
+    if(!req.session.authenticated)
+        return res.redirect("/login");
+
+    const user = await getUserByPNID(req.session.pnid);
+
+    res.status(200).send(await ejs.renderFile(page("prefs"), {
+        "fc": req.session.fc || "",
+        "pnid": req.session.pnid,
+        "show": user.show
+    }, ejsOpts));
+});
 
 app.get("/api/skip/:pnid", async (req, res) => {
     if(!req.session.authenticated)
