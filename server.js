@@ -13,7 +13,10 @@ import {
     pushSwipe,
     updateSwipe,
     getSwipeByPNIDs,
-    updateUser
+    updateUser,
+    getMatches,
+    getSkipped,
+    removeSwipe
 } from "./index.js";
 
 const { TOKEN_SECRET, DEV, DOMAIN } = process.env;
@@ -70,6 +73,28 @@ app.get("/", async (req, res) => {
         "cards": users.reverse()
     }, ejsOpts));
 });
+app.get("/matched", async (req, res) => {
+    if(!req.session.authenticated)
+        return res.redirect("/login");
+
+    const matches = await getMatches(req.session.pnid);
+
+    res.status(200).send(await ejs.renderFile(page("matched"), {
+        "cards": await Promise.all(matches.reverse().map(
+            async x => await getUserByPNID(x.from_u == req.session.pnid ? x.to_u : x.from_u)))
+    }, ejsOpts));
+});
+app.get("/skipped", async (req, res) => {
+    if(!req.session.authenticated)
+        return res.redirect("/login");
+
+    const matches = await getSkipped(req.session.pnid);
+
+    res.status(200).send(await ejs.renderFile(page("skipped"), {
+        "cards": await Promise.all(matches.reverse().slice(0, 10).map(
+            async x => await getUserByPNID(x.from_u == req.session.pnid ? x.to_u : x.from_u)))
+    }, ejsOpts));
+});
 app.get("/prefs", async (req, res) => {
     if(!req.session.authenticated)
         return res.redirect("/login");
@@ -110,6 +135,15 @@ app.get("/api/sent/:pnid", async (req, res) => {
         "to_u": req.params.pnid,
         "type": 1
     });
+    res.status(200).send("sent");
+});
+app.get("/api/unskip/:pnid", async (req, res) => {
+    if(!req.session.authenticated)
+        return res.redirect("/login");
+
+    const swipe = await getSwipeByPNIDs(req.session.pnid, req.params.pnid);
+    if(swipe && swipe.type == 0)
+        await removeSwipe(swipe.id);
     res.status(200).send("sent");
 });
 

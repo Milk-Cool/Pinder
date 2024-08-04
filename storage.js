@@ -124,6 +124,51 @@ export function updateSwipe(id, type) {
 }
 
 /**
+ * Gets matched swipes.
+ * 
+ * @param {string} pnid The user PNID
+ * @returns {Promise<Swipe[]>} The swipes
+ */
+export function getMatches(pnid) {
+    return new Promise((resolve, reject) => {
+        db.all(`SELECT * FROM swipes
+        WHERE to_u = ? AND type = 3
+        UNION SELECT * FROM swipes
+        WHERE from_u = ? AND type = 3;`, [pnid, pnid], (err, data) => {
+            if(err) reject(err);
+            else resolve(data);
+        });
+    });
+}
+
+/**
+ * Gets skipped swipes.
+ * 
+ * @param {string} pnid The user PNID
+ * @returns {Promise<Swipe[]>} The swipes
+ */
+export function getSkipped(pnid) {
+    return new Promise((resolve, reject) => {
+        db.all(`SELECT * FROM swipes
+        WHERE from_u = ? AND type = 0;`, [pnid], (err, data) => {
+            if(err) reject(err);
+            else resolve(data);
+        });
+    });
+}
+
+/**
+ * Removes a swipe.
+ * 
+ * @param {number} id The swipe ID
+ */
+export function removeSwipe(id) {
+    return new Promise(resolve => {
+        db.run(`DELETE FROM swipes WHERE id = ?;`, [id], resolve);
+    });
+}
+
+/**
  * Recommends users to a specific user. 
  * 
  * @param {string} user The user PNID

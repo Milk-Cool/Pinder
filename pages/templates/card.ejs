@@ -1,8 +1,12 @@
-<div class="block card fixed" style="top: <%- i + 1 %>em; z-index: <%- i %>" id="c<%- i %>" data-pnid="<%- pnid %>">
+<div class="block card <%- type == "main" ? "fixed" : "center" %>" style="top: <%- i + 1 %>em; z-index: <%- i %>" id="c<%- i %>" data-pnid="<%- pnid %>">
     <img src="https://cdn.pretendo.cc/mii/<%= pid %>/normal_face.png">
     <h1><%= pnid %></h1>
     <h2><%= fc %></h2>
-    <h5>Add the friend on all your devices, then press "Sent!", or, if you don't want to add them, press "Skip"</h5>
-    <button>Skip</button>
-    <button class="second">Sent!</button>
+    <% if(type == "main") { %>
+        <h5>Add the friend on all your devices, then press "Sent!", or, if you don't want to add them, press "Skip"</h5>
+        <button>Skip</button>
+        <button class="second">Sent!</button>
+    <% } else if(type == "skipped") { %>
+        <button>Un-skip</button>
+    <% } %>
 </div>

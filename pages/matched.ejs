@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Matched cards</title>
+        <meta charset="utf-8">
+        <link href="/style.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+    </head>
+    <body>
+        <a href="/prefs" class="bottom">Back</a>
+        <img src="/icon.svg" class="icon">
+        <% if(cards.length) { %>
+            <% cards.forEach((card, i) => { %>
+                <%- include("templates/card", { "pid": card.pid, "pnid": card.pnid, "fc": card.fc, "i": i, "type": null }) %>
+            <% }); %>
+        <% } else { %>
+            <h2 class="c">Too bad! There are no matches.</h2>
+        <% } %>
+    </body>
+</html>
