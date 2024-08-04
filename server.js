@@ -16,7 +16,7 @@ import {
     updateUser
 } from "./index.js";
 
-const { TOKEN_SECRET, DEV } = process.env;
+const { TOKEN_SECRET, DEV, DOMAIN } = process.env;
 
 const timeouts = {};
 const interval = 60 * 1000;
@@ -50,7 +50,7 @@ app.use(session({
     "secret": TOKEN_SECRET,
     "resave": true,
     "saveUninitialized": true,
-    "cookie": { "secure": !DEV, "httpOnly": true }
+    "cookie": { "secure": !DEV, "httpOnly": true, "domain": DOMAIN }
 }));
 app.use(express.urlencoded({ "extended": true }));
 
