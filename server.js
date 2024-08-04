@@ -144,7 +144,7 @@ app.post("/login", async (req, res) => {
         timeouts[req.ip] = new Date();
         req.session.fc = req.body.fc || "";
         const t2 = await getLastPost(req.session.pid);
-        if(!t2.includes(req.session.code))
+        if(!t2 || !t2.includes(req.session.code))
             return res.redirect("/login?error=Code+not+found+in+post");
         await pushUser({
             "pid": req.session.pid,
