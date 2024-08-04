@@ -2,12 +2,13 @@ import sqlite3 from "sqlite3";
 
 const db = new sqlite3.Database("data.db");
 
-/** @typedef {{ pid: number, pnid: string, fc: string, hash: string }} User */
+/** @typedef {{ pid: number, pnid: string, fc: string, hash: string, show: 0 | 1 }} User */
 db.run(`CREATE TABLE IF NOT EXISTS users (
     pid INTEGER,
     pnid TEXT,
     fc TEXT,
-    hash TEXT
+    hash TEXT,
+    show INTEGER
 );`);
 
 /*
@@ -32,8 +33,8 @@ db.run(`CREATE TABLE IF NOT EXISTS swipes (
  */
 export function pushUser(user) {
     return new Promise(resolve => {
-        db.run(`INSERT INTO users (pid, pnid, fc, hash)
-        VALUES (?, ?, ?, ?);`, [user.pid, user.pnid, user.fc, user.hash], resolve);
+        db.run(`INSERT INTO users (pid, pnid, fc, hash, show)
+        VALUES (?, ?, ?, ?, 1);`, [user.pid, user.pnid, user.fc, user.hash], resolve);
     });
 }
 
