@@ -46,7 +46,7 @@ export function pushUser(user) {
  */
 export function updateUser(pnid, show) {
     return new Promise(resolve => {
-        db.run(`UPDATE swipes SET show = ?
+        db.run(`UPDATE users SET show = ?
         WHERE pnid = ?;`, [show, pnid], resolve);
     });
 }
