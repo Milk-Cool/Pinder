@@ -67,7 +67,7 @@ app.get("/", async (req, res) => {
         "info": req.query.info,
         "fc": req.session.fc || "",
         "pnid": req.session.pnid,
-        "cards": users
+        "cards": users.reverse()
     }, ejsOpts));
 });
 app.get("/prefs", async (req, res) => {
