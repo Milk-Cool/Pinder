@@ -14,8 +14,12 @@
                 <h2>Info: <%= info %></h2>
             </div>
         <% } %>
-        <% cards.forEach((card, i) => { %>
-            <%- include("templates/card", { "pid": card.pid, "pnid": card.pnid, "fc": card.fc, "i": i }) %>
-        <% }); %>
+        <% if(cards.length) { %>
+            <% cards.forEach((card, i) => { %>
+                <%- include("templates/card", { "pid": card.pid, "pnid": card.pnid, "fc": card.fc, "i": i }) %>
+            <% }); %>
+        <% } else { %>
+            <h2 class="c">Too bad! There are no more cards.</h2>
+        <% } %>
     </body>
 </html>

@@ -3,11 +3,18 @@ const checkReload = id => {
 };
 
 const skip = async id => {
-    document.getElementById("c" + id).classList.add("left");
+    const el = document.getElementById("c" + id);
+    el.classList.add("left");
+    await fetch("/api/skip/" + el.dataset.pnid);
     checkReload(id);
 };
 const sent = async id => {
-    document.getElementById("c" + id).classList.add("right");
+    const el = document.getElementById("c" + id);
+    el.classList.add("right");
+    const f = await fetch("/api/sent/" + el.dataset.pnid);
+    const t = await f.text();
+    if(t == "match")
+        alert("It's a match!");
     checkReload(id);
 };
 

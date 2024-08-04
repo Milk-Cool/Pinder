@@ -11,7 +11,8 @@ import {
     pushUser,
     recommendUsers,
     pushSwipe,
-    updateSwipe
+    updateSwipe,
+    getSwipeByPNIDs
 } from "./index.js";
 
 const { TOKEN_SECRET, DEV } = process.env;
@@ -65,6 +66,36 @@ app.get("/", async (req, res) => {
         "pnid": req.session.pnid,
         "cards": users
     }, ejsOpts));
+});
+
+app.get("/api/skip/:pnid", async (req, res) => {
+    if(!req.session.authenticated)
+        return res.redirect("/login");
+
+    if(!(await getSwipeByPNIDs(req.session.pnid, req.params.pnid)))
+        await pushSwipe({
+            "from_u": req.session.pnid,
+            "to_u": req.params.pnid,
+            "type": 0
+        });
+    res.status(200).send("skipped");
+});
+
+app.get("/api/sent/:pnid", async (req, res) => {
+    if(!req.session.authenticated)
+        return res.redirect("/login");
+
+    const swipe = await getSwipeByPNIDs(req.params.pnid, req.session.pnid);
+    if(swipe) {
+        await updateSwipe(swipe.id, 3);
+        return res.status(200).send("match");
+    }
+    await pushSwipe({
+        "from_u": req.session.pnid,
+        "to_u": req.params.pnid,
+        "type": 1
+    });
+    res.status(200).send("sent");
 });
 
 app.get("/login", async (req, res) => {

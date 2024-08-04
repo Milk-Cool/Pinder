@@ -60,7 +60,7 @@ export function getUserByPNID(pnid) {
 export function pushSwipe(swipe) {
     return new Promise(async resolve => {
         if(await getSwipeByPNIDs(swipe.from_u, swipe.to_u)) return resolve(null);
-        db.run(`INSERT INTO swipes (from, to, type)
+        db.run(`INSERT INTO swipes (from_u, to_u, type)
         VALUES (?, ?, ?);`, [swipe.from_u, swipe.to_u, swipe.type], resolve);
     });
 }
