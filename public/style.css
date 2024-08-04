@@ -88,10 +88,12 @@ input::placeholder {
     box-shadow: 0 0 1em #0005;
     width: calc(80vw - 2 * var(--pad));
     max-width: 20em;
-    position: fixed;
     left: 50vw;
     transform: translateX(-50%);
-    height: fit-content;
+    height: 33em;
+}
+.fixed {
+    position: fixed;
 }
 
 .card > img {
