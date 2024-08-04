@@ -94,6 +94,7 @@ input::placeholder {
     max-width: 20em;
     left: 50vw;
     height: 33em;
+    margin-top: 1em;
 }
 .fixed {
     position: fixed;
