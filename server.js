@@ -51,7 +51,7 @@ app.use(session({
     "secret": TOKEN_SECRET,
     "resave": true,
     "saveUninitialized": true,
-    "cookie": { "secure": !DEV, "httpOnly": true, "domain": DOMAIN }
+    "cookie": { "secure": !DEV, "httpOnly": true, "domain": DOMAIN, "path": "/" }
 }));
 app.use(express.urlencoded({ "extended": true }));
 
