@@ -11,12 +11,12 @@ db.run(`CREATE TABLE IF NOT EXISTS users (
 );`);
 
 /*
-0 - no one sent (unused)
+0 - from skipped
 1 - from sent
 2 - to sent (unused)
 3 - both sent, match
 */
-/** @typedef { 1 | 3 } SwipeType */
+/** @typedef { 0 | 1 | 3 } SwipeType */
 /** @typedef {{ id: number?, from_u: string, to_u: string, type: SwipeType }} Swipe */
 db.run(`CREATE TABLE IF NOT EXISTS swipes (
     id INTEGER PRIMARY KEY,
@@ -110,7 +110,7 @@ export function recommendUsers(user) {
             WHERE u.pnid NOT IN (
               SELECT s.to_u
               FROM swipes s
-              WHERE s.from_u = ? AND s.type = 1
+              WHERE s.from_u = ?
             ) AND u.pnid != ?
             ORDER BY RANDOM()
             LIMIT 10;`, [user, user], (err2, data2) => {
