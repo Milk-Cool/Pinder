@@ -155,3 +155,7 @@ input::placeholder {
     left: 50vw;
     transform: translateX(-50%);
 }
+
+#info {
+    z-index: 1;
+}
