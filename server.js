@@ -46,7 +46,7 @@ const template = name => join("templates", name + ".ejs");
 const ejsOpts = {};
 
 const app = express();
-app.set("trust proxy", 1);
+app.enable("trust proxy");
 app.use(session({
     "secret": TOKEN_SECRET,
     "resave": true,
