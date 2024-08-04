@@ -8,7 +8,10 @@ import {
     HTMLBrowser,
     get,
     getUserByPNID,
-    pushUser
+    pushUser,
+    recommendUsers,
+    pushSwipe,
+    updateSwipe
 } from "./index.js";
 
 const { TOKEN_SECRET, DEV } = process.env;
@@ -54,22 +57,13 @@ app.get("/", async (req, res) => {
     if(!req.session.authenticated)
         return res.redirect("/login");
 
+    const users = await recommendUsers(req.session.pnid);
+
     res.status(200).send(await ejs.renderFile(page("main"), {
         "info": req.query.info,
         "fc": req.session.fc || "",
         "pnid": req.session.pnid,
-        "cards": [
-            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
-            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
-            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
-            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
-            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
-            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
-            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
-            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
-            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
-            { "pid": 1038835492, "pnid": "KanyeTheGoat", "fc": "1234-5678-1290" },
-        ]
+        "cards": users
     }, ejsOpts));
 });
 

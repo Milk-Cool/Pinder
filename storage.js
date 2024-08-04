@@ -17,11 +17,11 @@ db.run(`CREATE TABLE IF NOT EXISTS users (
 3 - both sent, match
 */
 /** @typedef { 1 | 3 } SwipeType */
-/** @typedef {{ id: number?, from: string, to: string, type: SwipeType }} Swipe */
+/** @typedef {{ id: number?, from_u: string, to_u: string, type: SwipeType }} Swipe */
 db.run(`CREATE TABLE IF NOT EXISTS swipes (
     id INTEGER PRIMARY KEY,
-    from TEXT,
-    to TEXT,
+    from_u TEXT,
+    to_u TEXT,
     type INTEGER
 );`);
 
@@ -100,20 +100,20 @@ export function updateSwipe(id, type) {
 */
 export function recommendUsers(user) {
     return new Promise((resolve, reject) => {
-        db.get(`SELECT u.*
+        db.all(`SELECT u.*
         FROM swipes s
-        INNER JOIN users u ON s.from = u.pmid
-        WHERE s.to = ? AND s.type = 1;`, [user], (err, data) => {
+        INNER JOIN users u ON s.from_u = u.pnid
+        WHERE s.to_u = ? AND s.type = 1;`, [user], (err, data) => {
             if(err) reject(err);
-            else if(data.length < 10) db.get(`SELECT *
+            else if(data.length < 10) db.all(`SELECT *
             FROM users u
             WHERE u.pnid NOT IN (
-              SELECT s.to
+              SELECT s.to_u
               FROM swipes s
-              WHERE s.from = ? AND s.type = 1
-            )
+              WHERE s.from_u = ? AND s.type = 1
+            ) AND u.pnid != ?
             ORDER BY RANDOM()
-            LIMIT 10;`, [user], (err2, data2) => {
+            LIMIT 10;`, [user, user], (err2, data2) => {
                 if(err2) reject(err2);
                 else resolve(data.concat(data2));
             })
