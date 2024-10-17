@@ -112,6 +112,12 @@ app.get("/api/skip/:pnid", async (req, res) => {
     if(!req.session.authenticated)
         return res.redirect("/login");
 
+    const swipe = await getSwipeByPNIDs(req.params.pnid, req.session.pnid);
+    if(swipe) {
+        await updateSwipe(swipe.id, 0);
+        return;
+    }
+
     if(!(await getSwipeByPNIDs(req.session.pnid, req.params.pnid)))
         await pushSwipe({
             "from_u": req.session.pnid,

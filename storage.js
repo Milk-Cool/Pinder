@@ -190,7 +190,7 @@ export function recommendUsers(user) {
             ) AND u.pnid NOT IN (
               SELECT s.from_u
               FROM swipes s
-              WHERE s.to_u = ? AND s.type = 3
+              WHERE s.to_u = ? AND s.type IN (0, 3)
             ) AND u.pnid != ? AND u.show = 1
             ORDER BY RANDOM()
             LIMIT 10;`, [user, user, user], (err2, data2) => {
