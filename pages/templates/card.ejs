@@ -1,5 +1,6 @@
 <div class="block card <%- type == "main" ? "fixed" : "cx" %>" <% if(type == "main") { %>style="top: <%- i + 1 %>em; z-index: <%- i %>"<% } %> id="c<%- i %>" data-pnid="<%- pnid %>">
-    <img src="https://cdn.pretendo.cc/mii/<%= pid %>/normal_face.png">
+    <!--<img src="https://cdn.pretendo.cc/mii/<%= pid %>/normal_face.png">-->
+    <img src="https://mii-unsecure.ariankordi.net/miis/image.png?nnid=<%= pnid %>&api_id=1&type=face&width=512&pantsColor=gray">
     <h1><%= pnid %></h1>
     <h2><%= fc %></h2>
     <% if(type == "main") { %>
